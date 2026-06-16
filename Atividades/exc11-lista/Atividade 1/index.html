@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyber-Validator CPF</title>
+    <style>
+        
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Courier New', Courier, monospace;
+            background: linear-gradient(135deg, #0f051d 0%, #290b54 50%, #051e3e 100%);
+            overflow: hidden;
+        }
+
+        /* Janela de Destaque (Interface Terminal) */
+        .cyber-panel {
+            background: rgba(15, 5, 29, 0.85);
+            border: 2px solid #00f0ff;
+            box-shadow: 0 0 20px #00f0ff, inset 0 0 10px rgba(0, 240, 255, 0.3);
+            border-radius: 8px;
+            padding: 30px;
+            width: 350px;
+            text-align: center;
+            position: relative;
+        }
+
+        /* canto sup esq */
+        .cyber-panel::before {
+            content: "validador CPF JS - atv 01";
+            position: absolute;
+            top: -12px;
+            left: 20px;
+            background: #00f0ff;
+            color: #0f051d;
+            font-size: 10px;
+            font-weight: bold;
+            padding: 2px 8px;
+            text-shadow: none;
+        }
+
+        h2 {
+            color: #fff;
+            text-shadow: 0 0 8px #ff007f;
+            margin-top: 10px;
+            margin-bottom: 25px;
+            font-size: 1.4rem;
+            letter-spacing: 2px;
+        }
+
+        /* Área de Status Oculta (Invisível por padrão) */
+        .status-container {
+            height: 40px; /* Mantém o espaço reservado para evitar que o layout pule */
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .status-box {
+            display: none; /* Estado invisível inicial */
+            font-weight: bold;
+            font-size: 14px;
+            padding: 8px 15px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            width: 100%;
+        }
+
+        /* Classes dinâmicas para o Status */
+        .status-valido {
+            display: block !important;
+            background: rgba(0, 255, 102, 0.1);
+            color: #00ff66;
+            border: 1px solid #00ff66;
+            box-shadow: 0 0 10px rgba(0, 255, 102, 0.5);
+        }
+
+        .status-invalido {
+            display: block !important;
+            background: rgba(255, 0, 127, 0.1);
+            color: #ff007f;
+            border: 1px solid #ff007f;
+            box-shadow: 0 0 10px rgba(255, 0, 127, 0.5);
+        }
+
+        /* Campo de Entrada e Botão */
+        .input-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        label {
+            color: #00f0ff;
+            font-size: 11px;
+            display: block;
+            margin-bottom: 5px;
+            letter-spacing: 1px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            background: #150a21;
+            border: 1px solid #ff007f;
+            color: #fff;
+            font-size: 16px;
+            box-sizing: border-box;
+            outline: none;
+            transition: all 0.3s;
+            letter-spacing: 2px;
+        }
+
+        input:focus {
+            border-color: #00f0ff;
+            box-shadow: 0 0 10px #00f0ff;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #ff007f;
+            border: none;
+            color: #fff;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.2s;
+            box-shadow: 0 0 10px rgba(255, 0, 127, 0.5);
+        }
+
+        button:hover {
+            background: #00f0ff;
+            color: #0f051d;
+            box-shadow: 0 0 15px #00f0ff;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cyber-panel">
+        <h2>VALIDADOR_CPF</h2>
+
+        <!-- resultado CPF (Invisível inicialmente) -->
+        <div class="status-container">
+            <div id="statusMensagem" class="status-box"></div>
+        </div>
+
+        <!-- Campo para colocar o cpf -->
+        <div class="input-group">
+            <label for="campoCpf">> INSERIR_DADOS:</label>
+            <input 
+                type="text" 
+                id="campoCpf" 
+                maxlength="14" 
+                placeholder="000.000.000-00" 
+                oninput="mascaraCPF(this)"
+            >
+        </div>
+
+        <button onclick="clicarValidar()">[ Validar ]</button>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>lista ex 6</title>
+<style>
+     body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+ .todo-app{
+    text-align: center;
+    max-width: 700px;
+    border: 1px solid  #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.result{
+    text-align: center;
+    max-width: 700px;
+    border: 1px solid  #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+
+
+</style>
+
+
+
+
+</head>
+<body>
+<div class="todo-app">
+    <h2>Pacote festa</h2>
+    <input id="number" placeholder="quantidade de pessoas" onchange="orcamento()">
+<select id="orca" onchange="orcamento()">
+    <option value="standard">Standard</option>
+    <option value="premium">Premium</option>
+    <option value="infinity">Infinity Deluxe</option>
+</select>
+<div id="resul"></div>
+</div>
+
+
+
+<script>
+const pessoas = document.getElementById("number");
+const pacote = document.getElementById("orca");
+const demo = document.getElementById("resul");
+const list = document.getElementById("resul").classList;
+
+function orcamento(){
+
+let total = 0;
+let taxa = 0;
+let dis = 0;
+
+    switch(pacote.value)
+    {
+        case "standard":
+        total = 50 * Number(pessoas.value)
+        break;
+
+        case "premium":
+        total = 80 * Number(pessoas.value)
+        break;
+
+        case "infinity":
+        total = 120 * Number(pessoas.value)
+        break;
+    }
+    taxa = total + (total*0.1);
+    if (pessoas.value >= 100)
+    {
+        dis = taxa - (taxa*0.05);
+        taxa = dis;
+    }
+    list.add("result");
+    demo.innerHTML = `o total ficou ${taxa}`
+   console.log(total*0.1.toFixed(2));
+   console.log(taxa*0.05.toFixed(2));
+}
+</script>
+
+</body>
+
+
+
+</html>

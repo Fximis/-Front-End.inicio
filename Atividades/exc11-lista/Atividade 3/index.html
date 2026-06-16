@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>lista ex 3</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+
+    .todo-app {
+        text-align: center;
+        max-width: 700px;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #fff;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    button {
+        border: solid 1px gray;
+        border-radius: 10px;
+        background-color: rgba(0, 0, 0, 0);
+        font-family: Arial, Helvetica, sans-serif;
+        padding: 5px;
+        width: 100px;
+    }
+
+    button:hover {
+        background-color: gray;
+        cursor: pointer;
+    }
+    #nota{
+    padding: 10px;
+    margin: 5px;
+    }
+    .repro{
+    color: red;
+    }
+    .exame{
+    color: green;
+    }
+    .apro{
+    color: blue;
+    }
+
+</style>
+</head>
+
+
+
+<body>
+    <div class="todo-app">
+        <h2>calcular media</h2>
+        <input type="text" id="name" placeholder="seu nome"><br><br>
+        <input type="number" id="first" placeholder="nota 1" step="0.1">
+        <input type="number" id="secund" placeholder="nota 2" step="0.1">
+        <input type="number" id="third" placeholder="nota 3" step="0.1"><br><br>
+        <button onclick="calcular()">calcular</button>
+        <h3 id="nota"></h3>
+    </div>
+
+
+
+
+    <script>
+            const nome = document.getElementById("name");
+            const n1 = document.getElementById("first");
+            const n2 = document.getElementById("secund");
+            const n3 = document.getElementById("third");
+            const nota = document.getElementById("nota");
+            const list = document.getElementById("nota").classList;
+
+            function calcular(){
+
+                if(n1.value !== "" && n2.value !== "" && n3.value !== "" && nome.value !== "")
+                  {
+                    let media = ((Number(n1.value) + Number(n2.value) + Number(n3.value)) / 3).toFixed(2);
+                    nota.innerHTML= `<h3>${nome.value} sua media é: ${media}</h3>`;
+                    if (media < 4.0)
+                  { 
+                    list.remove("exame");
+                    list.remove("apro");
+                    list.add("repro");
+                  }
+                  if(media >=4 && media <= 6.9)
+                  {
+                    let falta = 10 - media;
+                    nota.innerHTML= `<h3>${nome.value} sua media é: ${media} e falta ${falta} para passar</h3>`;
+                    list.remove("apro");
+                    list.remove("repro");
+                    list.add("exame");
+                  }
+                  if(media >= 7.0)
+                  {
+                    list.remove("exame");
+                    list.remove("repro");
+                    list.add("apro");
+                  }
+                  }
+                  else
+                 {
+                    alert("preencha todos os campos");
+                 }    
+            } 
+    </script>
+</body>
+</html>

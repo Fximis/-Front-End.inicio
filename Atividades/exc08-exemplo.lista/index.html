@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lista de Tarefas</title>
+    <style>
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.todo-app {
+    text-align: center;
+    max-width: 400px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px;
+    border-bottom: 1px solid #ccc;
+}
+
+li.completed {
+    text-decoration: line-through;
+}
+
+button {
+    margin-top: 10px;
+}
+    </style>
+</head>
+<body>
+    <div class="todo-app">
+        <h2>Lista de Tarefas</h2>
+        <input type="text" id="taskInput" placeholder="Adicione uma nova tarefa">
+        <button onclick="addTask()">Adicionar</button>
+        <ul id="taskList"></ul>
+    </div>
+    <script>
+        const taskInput = document.getElementById("taskInput");
+        const taskList = document.getElementById("taskList");
+
+function addTask(){
+  const textInput = taskInput.value.trim()
+  if(textInput !== ''){
+const newTask = document.createElement('li');
+  newTask.innerHTML = 
+    `<span>${textInput}</span>
+     <button onclick="editar(this)">Editar</button>
+     <button onclick="remover(this)">Remover</button>
+     <button onclick="concluir(this)">Concluir</button>`
+  
+    taskList.appendChild(newTask);
+  }
+  }
+
+function remover(button){
+  const itemToRemove = button.parentElement;
+  taskList.removeChild(itemToRemove);
+}
+
+function editar(button){
+  const item = button.parentElement;
+  const span = item.querySelector('span');
+  const novoTexto = prompt('Editar tarefa:', span.textContent);
+  if(novoTexto !== null && novoTexto.trim() !== ''){
+    span.textContent = novoTexto.trim();
+  }
+}
+
+function concluir(button){
+  const itemToMark = button.parentElement;
+  itemToMark.classList.toggle('completed');
+}
+    </script>
+</body>
+</html>

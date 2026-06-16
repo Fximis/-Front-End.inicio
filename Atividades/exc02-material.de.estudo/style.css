@@ -1,0 +1,150 @@
+@charset "UTF-8";
+
+body{
+    background: linear-gradient(130deg, #19535fc7, #194975, #ffffff8a);
+    background-attachment: fixed;
+}
+
+.limparHL{
+    display: block;
+    text-decoration: none;
+    color:#194975;
+   
+}
+
+.topo{ 
+    display: block;
+    text-decoration: none;
+    color: #186675e0;
+    text-align: center;
+}
+
+.topo:hover{ 
+    color: #0313eee0;
+}
+
+.questionario{
+    color: whitesmoke;
+    text-shadow:black 1px 1px 1px;
+}
+
+.navegadorQuestionario{
+    background-color: whitesmoke;
+    width: 1000px;
+    margin:auto;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 10px 10px 30px #0f343b;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+}
+
+main nav{
+    background: linear-gradient(60deg, #19535fc7, #194975);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    border-radius: 15px;
+    box-shadow: 5px 10px 25px #0f343b;
+}
+
+main nav ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+main nav ul li{
+    margin: 0;
+}
+
+main nav ul li a{
+    display: block;
+    padding: 10px 40px;
+    color: rgba(245, 245, 245, 0.877);
+    text-decoration: none;
+    text-shadow: 2px 3px 5px rgba(0, 0, 0, 0.87);
+    transition: 0.3s;
+}
+main nav ul li a:hover {
+    background: #0e95a7;
+    color: white;
+}
+
+main{
+
+    background-color: whitesmoke;
+    width: 1000px;
+    margin:auto;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 10px 10px 30px #0f343b;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+}
+
+h1{ 
+    color: #194975;
+    font-size: 35px;
+    text-align: center;
+    text-shadow: 1px 1px 2px #1866756b;
+}
+
+h2{
+    color: #194975;
+    text-shadow: 1px 1px 3px #0f343b6e;
+    padding: 10px;
+}
+
+h2 a:hover {
+    
+    color: rgba(248, 123, 6, 0.897);
+}
+
+h3{
+    color: #194975;
+    text-shadow: 1px 1px 32x #849aaf;
+    padding: 10px;   
+}
+
+p{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    text-align: justify;
+    text-indent: 3em;
+    font-size: 17px;
+    padding: 10px;
+
+}
+
+main ul li{
+    margin: 5px;
+}
+
+main ul li a{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 17px;
+    text-decoration: none;
+    text-align: justify;
+    color: rgb(0, 0, 0);
+}
+
+main ol{ 
+    margin: 5px;
+}
+
+main ol li{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 17px;
+    text-decoration: none;
+    text-align: justify;
+    color: rgb(0, 0, 0);
+}
+
+footer{
+    text-decoration: none;
+    text-align: center;
+    
+}
+
+/* Arrumar OL UL */
+

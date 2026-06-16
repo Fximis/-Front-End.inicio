@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>lista ex 4</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+
+    .todo-app {
+        text-align: center;
+        max-width: 700px;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #fff;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .parcela{
+        width: 70px;
+    }
+    #resultado{
+        text-align: center;
+        max-width: 700px;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #fff;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-top:10px;
+    
+    }
+
+</style>
+</head>
+
+
+
+<body>
+    <div class="todo-app">
+        <h2>calcular juros</h2>
+        <input type="number" id="valor" placeholder="valor" oninput="calcular()">
+        <select id="cartao" onchange="calcular()">
+            <option value="Visa">Visa</option>
+            <option value="Master">Master</option>
+            <option value="Elo">Elo</option>
+        </select>
+       <select id="parcelas" onchange="calcular()"></select>
+       <div id="resultado"></div>
+
+    </div>
+
+
+<script>
+    const select = document.getElementById("parcelas");
+    const bandeira = document.getElementById("cartao");
+    const total = document.getElementById("valor");
+    const parc = document.getElementById("parcelas");
+    const demo = document.getElementById("resultado");
+    
+    
+    let taxabandeira = 0;
+    let juros = 0;
+    let taxmen = 0;
+    let tot = 0
+    let totpar = 0;
+
+    for(let i = 1;i<=12;i++)
+{
+    let option = document.createElement("option");
+
+    option.value = i;
+    option.textContent = `${i}x`;
+
+    select.appendChild(option);
+}
+
+
+
+function calcular(){
+    switch(bandeira.value){
+    case "Visa":
+        taxabandeira = Number(total.value) * 0.02;
+        
+        
+        break;
+    case "Master":
+        taxabandeira = Number(total.value) * 0.0182;
+        
+        break;
+    case "Elo":
+        taxabandeira = Number(total.value) * 0.03;
+       
+        break;
+    }
+    juros = Number(total.value) * 0.0035 * Number(parc.value);
+    taxmen = 12.50 * Number(parc.value);
+    tot = Number(total.value) + Number(taxabandeira) + Number(juros) + Number(taxmen);
+    totpar = Number(tot) / Number(parc.value)
+    demo.innerHTML=`valor total ${tot.toFixed(2)}R$<br>
+                    valor das parcelas ${totpar.toFixed(2)}R$<br>
+                    valor juros ${juros.toFixed(2)}R$<br>
+                    valor taxa ${taxmen.toFixed(2)}R$<br>
+                    valor taxa bandeira ${taxabandeira.toFixed(2)}R$`
+}
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,371 @@
+/* =====================================================================
+   NJORD — V2 "Aurora Nórdica"
+   style.css — variáveis, reset, tipografia, atmosfera, navbar, botões
+   ===================================================================== */
+
+/* ---------- DESIGN TOKENS ---------- */
+:root {
+  /* Base escura (ink nórdico) — substitui o fundo branco da V1 */
+  --ink-900: #07060F;
+  --ink-800: #0B0A1A;
+  --ink-700: #100E24;
+  --ink-600: #161333;
+
+  /* Acentos da marca */
+  --blue:   #4D8DFF;
+  --purple: #A855F7;
+  --orange: #FF8A3D;
+  --green:  #34D399;
+
+  /* Texto */
+  --text:        #F4F2FF;
+  --text-muted:  #A8A3C8;
+  --text-dim:    #6E6A8C;
+
+  /* Glass */
+  --glass-bg:     rgba(255, 255, 255, 0.045);
+  --glass-bg-2:   rgba(255, 255, 255, 0.07);
+  --glass-border: rgba(255, 255, 255, 0.10);
+  --glass-hi:     rgba(255, 255, 255, 0.18);
+
+  /* Gradientes da marca */
+  --grad-brand: linear-gradient(120deg, var(--blue) 0%, var(--purple) 50%, var(--orange) 100%);
+  --grad-warm:  linear-gradient(120deg, var(--purple), var(--orange));
+  --grad-cool:  linear-gradient(120deg, var(--blue), var(--purple));
+
+  /* Tipografia */
+  --font-display: "Bricolage Grotesque", "Geist", sans-serif;
+  --font-body:    "Geist", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono:    "Geist Mono", ui-monospace, "SF Mono", monospace;
+
+  /* Layout */
+  --container: 1200px;
+  --gutter: clamp(20px, 5vw, 48px);
+  --radius:    20px;
+  --radius-lg: 28px;
+  --radius-sm: 14px;
+
+  /* Sombras / glow */
+  --shadow:      0 24px 60px -20px rgba(0, 0, 0, 0.6);
+  --shadow-soft: 0 12px 32px -12px rgba(0, 0, 0, 0.5);
+  --glow-blue:   0 0 48px -8px rgba(77, 141, 255, 0.55);
+  --glow-purple: 0 0 48px -8px rgba(168, 85, 247, 0.5);
+  --glow-orange: 0 0 48px -8px rgba(255, 138, 61, 0.5);
+
+  /* Motion */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ---------- RESET ---------- */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+body {
+  font-family: var(--font-body);
+  font-weight: 400;
+  color: var(--text);
+  background: var(--ink-800);
+  line-height: 1.6;
+  letter-spacing: -0.01em;
+  overflow-x: hidden;
+  position: relative;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img, svg { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+ul { list-style: none; }
+
+/* ---------- TIPOGRAFIA ---------- */
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.04;
+  letter-spacing: -0.03em;
+}
+
+.mono { font-family: var(--font-mono); font-feature-settings: "tnum" 1; letter-spacing: -0.02em; }
+
+.grad-text {
+  background: var(--grad-brand);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: gradShift 8s ease infinite;
+}
+
+/* ---------- ATMOSFERA: AURORA ---------- */
+.aurora {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  overflow: hidden;
+  background:
+    radial-gradient(1200px 800px at 80% -10%, rgba(77,141,255,0.10), transparent 60%),
+    radial-gradient(1000px 700px at 0% 100%, rgba(255,138,61,0.08), transparent 55%),
+    var(--ink-800);
+}
+
+.aurora__blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.55;
+  will-change: transform;
+}
+
+.aurora__blob--blue {
+  width: 46vw; height: 46vw;
+  top: -10%; left: -8%;
+  background: radial-gradient(circle, var(--blue), transparent 70%);
+  animation: drift1 22s var(--ease) infinite alternate;
+}
+.aurora__blob--purple {
+  width: 42vw; height: 42vw;
+  top: 30%; right: -10%;
+  background: radial-gradient(circle, var(--purple), transparent 70%);
+  animation: drift2 26s var(--ease) infinite alternate;
+}
+.aurora__blob--orange {
+  width: 38vw; height: 38vw;
+  bottom: -12%; left: 30%;
+  background: radial-gradient(circle, var(--orange), transparent 70%);
+  animation: drift3 30s var(--ease) infinite alternate;
+}
+
+/* ---------- ATMOSFERA: GRÃO ---------- */
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ---------- CONTAINER ---------- */
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* ---------- GLASS CARD (base reutilizável) ---------- */
+.glass-card {
+  position: relative;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.4s var(--ease), border-color 0.4s var(--ease), box-shadow 0.4s var(--ease);
+}
+
+/* Borda superior com brilho sutil */
+.glass-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(160deg, var(--glass-hi), transparent 40%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.glass-card:hover {
+  border-color: var(--glass-hi);
+  box-shadow: var(--shadow);
+}
+
+/* ---------- NAVBAR ---------- */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 16px var(--gutter);
+  transition: padding 0.4s var(--ease), background 0.4s var(--ease), border-color 0.4s var(--ease);
+  border-bottom: 1px solid transparent;
+}
+.nav.is-scrolled {
+  padding: 10px var(--gutter);
+  background: rgba(11, 10, 26, 0.6);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border-bottom-color: var(--glass-border);
+}
+.nav__inner {
+  max-width: var(--container);
+  margin-inline: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+.nav__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.35rem;
+  letter-spacing: -0.04em;
+}
+.nav__mark {
+  width: 22px; height: 22px;
+  border-radius: 7px;
+  background: var(--grad-brand);
+  background-size: 200% 200%;
+  box-shadow: var(--glow-purple);
+  animation: gradShift 8s ease infinite;
+}
+.nav__links {
+  display: flex;
+  gap: 30px;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}
+.nav__links a {
+  position: relative;
+  transition: color 0.3s var(--ease);
+}
+.nav__links a::after {
+  content: "";
+  position: absolute;
+  left: 0; bottom: -6px;
+  width: 0; height: 2px;
+  border-radius: 2px;
+  background: var(--grad-cool);
+  transition: width 0.3s var(--ease);
+}
+.nav__links a:hover { color: var(--text); }
+.nav__links a:hover::after { width: 100%; }
+
+/* ---------- BOTÕES ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 12px 22px;
+  border-radius: 999px;
+  font-weight: 500;
+  font-size: 0.95rem;
+  letter-spacing: -0.01em;
+  transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease), background 0.3s var(--ease), border-color 0.3s var(--ease);
+  white-space: nowrap;
+}
+.btn svg { transition: transform 0.3s var(--ease); }
+.btn--lg { padding: 16px 30px; font-size: 1.02rem; }
+
+.btn--primary {
+  color: #0b0a1a;
+  background: var(--grad-brand);
+  background-size: 180% 180%;
+  font-weight: 600;
+  box-shadow: var(--glow-purple);
+  animation: gradShift 8s ease infinite;
+}
+.btn--primary:hover { transform: translateY(-2px) scale(1.02); box-shadow: var(--glow-blue), var(--glow-orange); }
+.btn--primary:hover svg { transform: translateX(4px); }
+
+.btn--glass {
+  background: var(--glass-bg-2);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: var(--text);
+}
+.btn--glass:hover { transform: translateY(-2px); border-color: var(--glass-hi); background: var(--glass-bg); }
+
+.btn--ghost {
+  border: 1px solid var(--glass-border);
+  color: var(--text);
+}
+.btn--ghost:hover { border-color: var(--glass-hi); background: var(--glass-bg); transform: translateY(-1px); }
+
+/* ---------- UTILIDADES DE SEÇÃO ---------- */
+.section { padding: clamp(80px, 12vh, 140px) 0; position: relative; }
+
+.section__head {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto clamp(48px, 7vh, 80px);
+}
+.section__tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--text-muted);
+  padding: 6px 14px;
+  border: 1px solid var(--glass-border);
+  border-radius: 999px;
+  background: var(--glass-bg);
+  margin-bottom: 20px;
+}
+.section__title {
+  font-size: clamp(2rem, 4.5vw, 3.4rem);
+  margin-bottom: 16px;
+}
+.section__subtitle {
+  font-size: clamp(1rem, 1.6vw, 1.18rem);
+  color: var(--text-muted);
+  max-width: 560px;
+  margin-inline: auto;
+}
+
+/* ---------- EYEBROW + CHIPS ---------- */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  padding: 7px 16px;
+  border: 1px solid var(--glass-border);
+  border-radius: 999px;
+  background: var(--glass-bg);
+}
+.eyebrow__dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 12px var(--green);
+  animation: pulse 2s ease-in-out infinite;
+}
+.chip {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  padding: 7px 14px;
+  border: 1px solid var(--glass-border);
+  border-radius: 10px;
+  background: var(--glass-bg);
+  transition: color 0.3s var(--ease), border-color 0.3s var(--ease), transform 0.3s var(--ease);
+}
+.chip:hover { color: var(--text); border-color: var(--glass-hi); transform: translateY(-2px); }
+
+/* ---------- ACESSIBILIDADE: reduzir movimento ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
